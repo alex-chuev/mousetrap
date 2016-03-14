@@ -1,0 +1,27 @@
+{
+  "name": "mousetrap",
+  "version": "0.0.1",
+  "description": "Application for catching the mouse in the office.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alex-chuev/mousetrap.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alex-chuev/mousetrap/issues"
+  },
+  "homepage": "https://github.com/alex-chuev/mousetrap#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "angular": "^1.5.0",
+    "angular-ui-bootstrap": "^1.2.4",
+    "angular-ui-router": "^0.2.18"
+  }
+}
