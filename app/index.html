@@ -6,22 +6,28 @@
 
 	<title>Mousetrap</title>
 
+	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="styles/app.css">
 </head>
 
 <body ng-app="app">
 	<div ng-controller="AppController">
-		<section ui-view></section>
+		<div class="container">
+			<section ui-view></section>
+		</div>
 	</div>
 
 	<script src="angular/angular.js"></script>
 	<script src="angular-ui-router/release/angular-ui-router.js"></script>
 	<script src="angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+	<script src="angular-resource/angular-resource.js"></script>
 
 	<script src="app.js"></script>
 
 	<script src="controllers/AppController.js"></script>
 	<script src="controllers/DashboardController.js"></script>
 	<script src="controllers/ActivitiesController.js"></script>
+
+	<script src="resources/Images.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'ui.bootstrap'])
+angular.module('app', ['ui.router', 'ui.bootstrap', 'ngResource'])
 	.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider, $stateProvider) {
 		$urlRouterProvider
 			.when('', '/dashboard')
