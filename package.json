@@ -21,6 +21,7 @@
     "angular-ui-bootstrap": "^1.2.4",
     "angular-ui-router": "^0.2.18",
     "express": "^4.13.4",
+    "multer": "^1.1.0",
     "open": "0.0.5"
   }
 }
