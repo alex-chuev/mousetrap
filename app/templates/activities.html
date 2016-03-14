@@ -3,7 +3,7 @@
 
 	<div class="row">
 		<div ng-repeat="image in images" class="col-xs-4 col-md-2">
-			<a class="thumbnail" href="{{image.url}}" target="_blank">
+			<a class="thumbnail" href="{{image.url}}" title="{{image.date}}" target="_blank">
 				<img ng-src="{{image.url}}" alt="">
 			</a>
 		</div>

@@ -32,9 +32,13 @@ app.get('/' + IMAGE_FOLDER, function (req, res) {
 	var images = [];
 
 	fs.readdirSync(IMAGE_FOLDER).forEach(function(image) {
-		if(path.extname(image) === IMAGE_EXTENSION) {
+		var extension = path.extname(image),
+			basename = path.basename(image, extension);
+
+		if(extension === IMAGE_EXTENSION) {
 			images.push({
-				url: IMAGE_FOLDER + '/' + image
+				url: IMAGE_FOLDER + '/' + image,
+				date: new Date(Number(basename))
 			});
 		}
 	});
