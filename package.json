@@ -16,6 +16,13 @@
     "url": "https://github.com/alex-chuev/mousetrap/issues"
   },
   "homepage": "https://github.com/alex-chuev/mousetrap#readme",
+  "devDependencies": {
+    "angular-mocks": "^1.5.0",
+    "jasmine-core": "^2.4.1",
+    "karma": "~0.12",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-jasmine": "^0.3.6"
+  },
   "dependencies": {
     "angular": "^1.5.0",
     "angular-resource": "^1.5.0",

@@ -2,13 +2,17 @@
 
 ### To install dependencies:
 
-`npm i`
+1. `npm i`
+
+### To run tests:
+
+1. `karma start`
 
 ### To run application:
 
-`node index`
+1. `node index`
 
-### Browser compatibility
+### Browser compatibility:
 
 * Google Chrome 23 and higher
 * Firefox 22 and higher
