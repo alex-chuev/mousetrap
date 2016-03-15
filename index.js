@@ -9,6 +9,7 @@ var app = express();
 
 var IMAGE_FOLDER = 'images';
 var IMAGE_EXTENSION = '.jpg';
+var SERVER_PORT = 8080;
 
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -46,6 +47,6 @@ app.get('/' + IMAGE_FOLDER, function (req, res) {
 	res.send(images);
 });
 
-app.listen(80, function () {
-	open('http://localhost/');
+app.listen(SERVER_PORT, function () {
+	open('http://localhost:' + SERVER_PORT);
 });
