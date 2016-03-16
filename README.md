@@ -4,11 +4,7 @@
 
 1. `npm i`
 
-### To run tests:
-
-1. `karma start`
-
-### To run application:
+### To run the application:
 
 1. `node index`
 
@@ -17,3 +13,11 @@
 * Google Chrome 23 and higher
 * Firefox 22 and higher
 * Opera 18 and higher
+
+### To install the tests runner:
+
+1. `npm i -g karma-cli`
+
+### To run tests:
+
+1. `karma start`
