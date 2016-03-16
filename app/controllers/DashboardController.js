@@ -46,17 +46,17 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', '$int
 
 		$interval(function() {
 			var currentImage = captureImage(videoDomNode),
-				diff = getCountOfDifferentPixels(prevImage.data, currentImage.data);
+				differentPixels = getDifferentPixels(prevImage.data, currentImage.data);
 
-			if($scope.isMotionDetected = motionHasBeen(diff)) {
+			if($scope.isMotionDetected = motionHasBeen(differentPixels.length)) {
 				saveImage();
 			}
 
 			prevImage = currentImage;
 		}, 50);
 
-		function motionHasBeen(diff) {
-			return diff > videoWidth * videoHeight * coefficientOfDifferenceForCapture;
+		function motionHasBeen(differentPixelsCount) {
+			return differentPixelsCount > videoWidth * videoHeight * coefficientOfDifferenceForCapture;
 		}
 
 		function saveImage() {
@@ -71,19 +71,21 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', '$int
 			return context.getImageData(0, 0, videoWidth, videoHeight);
 		}
 
-		function getCountOfDifferentPixels(prevImageData, currentImageData) {
+		function getDifferentPixels(prevImageData, currentImageData) {
 			var threshold = 20,
-				diff = 0;
+				differentPixels = [];
 
 			for(var i = 0, length = prevImageData.length; i < length; i += 4) {
 				var r = abs(prevImageData[i] - currentImageData[i]),
 					g = abs(prevImageData[i + 1] - currentImageData[i + 1]),
 					b = abs(prevImageData[i + 2] - currentImageData[i + 2]);
 
-				average(r, g, b) > threshold && ++diff;
+				if(average(r, g, b) > threshold) {
+					differentPixels.push(i)
+				}
 			}
 
-			return diff;
+			return differentPixels;
 		}
 	}
 }]);
