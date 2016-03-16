@@ -12,14 +12,18 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', '$int
 
 	$scope.stream = null;
 	$scope.isMotionDetected = false;
+	$scope.showMotionDetection = false;
+	$scope.saveImage = false;
 	$scope.onCanPlay = onCanPlay;
+	$scope.videoWidth = 800;
+	$scope.videoHeight = 600;
 
 	getUserMedia({
 		audio: false,
 		video: {
 			mandatory: {
-				minWidth: 1280,
-				minHeight: 720
+				minWidth: $scope.videoWidth,
+				minHeight: $scope.videoHeight
 			}
 		}
 	}, onSuccess, onError);
@@ -35,12 +39,10 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', '$int
 
 	function onCanPlay(event) {
 		var videoDomNode = event.target,
-			videoWidth = videoDomNode.videoWidth,
-			videoHeight = videoDomNode.videoHeight,
 			coefficientOfDifferenceForCapture = 0.02;
 
-		canvas.width = videoWidth;
-		canvas.height = videoHeight;
+		canvas.width = $scope.videoWidth;
+		canvas.height = $scope.videoHeight;
 
 		var prevImage = captureImage(videoDomNode);
 
@@ -48,15 +50,19 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', '$int
 			var currentImage = captureImage(videoDomNode),
 				differentPixels = getDifferentPixels(prevImage.data, currentImage.data);
 
-			if($scope.isMotionDetected = motionHasBeen(differentPixels.length)) {
+			if(($scope.isMotionDetected = motionHasBeen(differentPixels.length)) && $scope.saveImage) {
 				saveImage();
+			}
+
+			if($scope.showMotionDetection) {
+
 			}
 
 			prevImage = currentImage;
 		}, 50);
 
 		function motionHasBeen(differentPixelsCount) {
-			return differentPixelsCount > videoWidth * videoHeight * coefficientOfDifferenceForCapture;
+			return differentPixelsCount > $scope.videoWidth * $scope.videoHeight * coefficientOfDifferenceForCapture;
 		}
 
 		function saveImage() {
@@ -67,8 +73,8 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', '$int
 		}
 
 		function captureImage(video) {
-			context.drawImage(video, 0, 0, videoWidth, videoHeight);
-			return context.getImageData(0, 0, videoWidth, videoHeight);
+			context.drawImage(video, 0, 0, $scope.videoWidth, $scope.videoHeight);
+			return context.getImageData(0, 0, $scope.videoWidth, $scope.videoHeight);
 		}
 
 		function getDifferentPixels(prevImageData, currentImageData) {
