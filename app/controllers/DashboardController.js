@@ -16,7 +16,12 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', '$int
 
 	getUserMedia({
 		audio: false,
-		video: true
+		video: {
+			mandatory: {
+				minWidth: 1280,
+				minHeight: 720
+			}
+		}
 	}, onSuccess, onError);
 
 	function onSuccess(stream) {

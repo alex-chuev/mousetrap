@@ -4,8 +4,7 @@
 	<div class="dashboard__motion" ng-class="{'dashboard__motion--detected': isMotionDetected}"></div>
 
 	<video
-		width="480"
-		height="320"
+		width="100%"
 		ng-if="stream"
 		ng-src="{{stream}}"
 		on-can-play="onCanPlay($event)"
