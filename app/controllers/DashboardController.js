@@ -11,7 +11,7 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', '$int
 		average = numberHelper.average;
 
 	$scope.stream = null;
-	$scope.isMotionDetected = true;
+	$scope.isMotionDetected = false;
 	$scope.onCanPlay = onCanPlay;
 
 	getUserMedia({
