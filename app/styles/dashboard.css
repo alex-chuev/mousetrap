@@ -1,0 +1,18 @@
+.dashboard {
+	position: relative;
+	overflow: hidden;
+}
+
+.dashboard__motion {
+	position: absolute;
+	top: 25px;
+	right: 0;
+	display: block;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background: #e2e2e2;
+}
+.dashboard__motion--detected {
+	background: #f00;
+}

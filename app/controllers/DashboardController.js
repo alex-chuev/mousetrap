@@ -1,4 +1,4 @@
-angular.module('app').controller('DashboardController', ['$scope', '$sce', 'Images', 'numberHelper', function($scope, $sce, Images, numberHelper) {
+angular.module('app').controller('DashboardController', ['$scope', '$sce', '$interval', 'Images', 'numberHelper', function($scope, $sce, $interval, Images, numberHelper) {
 	var canvas = document.createElement('canvas'),
 		context = canvas.getContext('2d'),
 		getUserMedia = (
@@ -11,6 +11,7 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', 'Imag
 		average = numberHelper.average;
 
 	$scope.stream = null;
+	$scope.isMotionDetected = true;
 	$scope.onCanPlay = onCanPlay;
 
 	getUserMedia({
@@ -38,13 +39,14 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', 'Imag
 
 		var prevImage = captureImage(videoDomNode);
 
-		setInterval(function() {
+		$interval(function() {
 			var currentImage = captureImage(videoDomNode),
 				diff = getCountOfDifferentPixels(prevImage.data, currentImage.data);
 
-			if(motionHasBeen(diff)) {
+			if($scope.isMotionDetected = motionHasBeen(diff)) {
 				saveImage();
 			}
+
 			prevImage = currentImage;
 		}, 50);
 
