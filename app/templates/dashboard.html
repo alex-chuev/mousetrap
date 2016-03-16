@@ -1,10 +1,17 @@
 <div class="dashboard" ng-controller="DashboardController">
 	<h1 class="dashboard__title">Dashboard</h1>
 
-	<label><input type="checkbox" ng-model="saveImage" /> saveImage</label>
-	<label><input type="checkbox" ng-model="showMotionDetection" /> showMotionDetection</label>
+	<div class="dashboard__config">
+		<label class="checkbox-inline">
+			<input type="checkbox" ng-model="saveImage"> Save Images
+		</label>
 
-	<div class="dashboard__motion" ng-class="{'dashboard__motion--detected': isMotionDetected}"></div>
+		<label class="checkbox-inline">
+			<input type="checkbox" ng-model="showMotionDetection"> Show Motion
+		</label>
+	</div>
+
+	<a href="#/activities" class="dashboard__motion" ng-class="{'dashboard__motion--detected': isMotionDetected}"></a>
 
 	<canvas
 		width="{{videoWidth}}"

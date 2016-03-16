@@ -3,6 +3,12 @@
 	overflow: hidden;
 }
 
+.dashboard__config {
+	position: absolute;
+	top: 30px;
+	right: 50px;
+}
+
 .dashboard__motion {
 	position: absolute;
 	top: 25px;
