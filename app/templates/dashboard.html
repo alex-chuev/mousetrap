@@ -13,21 +13,26 @@
 
 	<a href="#/activities" class="dashboard__motion" ng-class="{'dashboard__motion--detected': isMotionDetected}"></a>
 
-	<canvas
-		width="{{videoWidth}}"
-		height="{{videoHeight}}"
-		class="dashboard__motions"
-		ng-if="showMotionDetection"
-		>
-	</canvas>
+	<div>
+		<canvas
+			motion-detection
+			width="{{videoWidth}}"
+			height="{{videoHeight}}"
+			class="dashboard__motions"
+			ng-if="showMotionDetection"
+			style="position: absolute; z-index: 1;"
+			>
+		</canvas>
 
-	<video
-		width="{{videoWidth}}"
-		height="{{videoHeight}}"
-		ng-if="stream"
-		ng-src="{{stream}}"
-		on-can-play="onCanPlay($event)"
-		autoplay
-		>
-	</video>
+		<video
+			width="{{videoWidth}}"
+			height="{{videoHeight}}"
+			ng-if="stream"
+			ng-src="{{stream}}"
+			on-can-play="onCanPlay($event)"
+			autoplay
+			>
+		</video>
+	</div>
+
 </div>
