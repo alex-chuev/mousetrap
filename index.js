@@ -11,7 +11,7 @@ var IMAGE_FOLDER = 'images';
 var IMAGE_EXTENSION = '.jpg';
 var SERVER_PORT = 8080;
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(express.static('app'));
 app.use(express.static('node_modules'));
 app.use('/' + IMAGE_FOLDER, express.static(IMAGE_FOLDER));
