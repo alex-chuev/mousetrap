@@ -8,7 +8,11 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', '$int
 			navigator.msGetUserMedia
 		).bind(window.navigator),
 		abs = numberHelper.abs,
-		average = numberHelper.average;
+		average = numberHelper.average,
+		widthOfMinimalAnalyzeZone = 10,
+		heightOfMinimalAnalyzeZone = 10,
+		minimalAnalyzeZoneCanvas = document.createElement('canvas'),
+		minimalAnalyzeZoneContext = minimalAnalyzeZoneCanvas.getContext('2d');
 
 	$scope.stream = null;
 	$scope.isMotionDetected = false;
@@ -18,7 +22,10 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', '$int
 	$scope.videoWidth = 800;
 	$scope.videoHeight = 600;
 
-	getUserMedia({
+	var minimalAnalyzeZoneCanvasWidth = minimalAnalyzeZoneCanvas.width = $scope.videoWidth / widthOfMinimalAnalyzeZone;
+	var minimalAnalyzeZoneCanvasHeight = minimalAnalyzeZoneCanvas.height = $scope.videoHeight / heightOfMinimalAnalyzeZone;
+
+		getUserMedia({
 		audio: false,
 		video: {
 			mandatory: {
@@ -39,23 +46,19 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', '$int
 
 	function onCanPlay(event) {
 		var videoDomNode = event.target,
-			coefficientOfDifferenceForCapture = 0.02;
+			coefficientOfDifferenceForCapture = 0.00003;
 
 		canvas.width = $scope.videoWidth;
 		canvas.height = $scope.videoHeight;
 
-		var prevImage = captureImage(videoDomNode);
+		var prevImage = getAnalyzeImageData();
 
 		$interval(function() {
-			var currentImage = captureImage(videoDomNode),
-				differentPixels = getDifferentPixels(prevImage.data, currentImage.data);
+			var currentImage = getAnalyzeImageData();
+			$scope.differentPixels = getDifferentPixels(prevImage.data, currentImage.data);
 
-			if(($scope.isMotionDetected = motionHasBeen(differentPixels.length)) && $scope.saveImage) {
+			if(($scope.isMotionDetected = motionHasBeen($scope.differentPixels.length)) && $scope.saveImage) {
 				saveImage();
-			}
-
-			if($scope.showMotionDetection) {
-
 			}
 
 			prevImage = currentImage;
@@ -77,8 +80,14 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', '$int
 			return context.getImageData(0, 0, $scope.videoWidth, $scope.videoHeight);
 		}
 
+		function getAnalyzeImageData() {
+			captureImage(videoDomNode);
+			minimalAnalyzeZoneContext.drawImage(canvas, 0, 0, minimalAnalyzeZoneCanvasWidth, minimalAnalyzeZoneCanvasHeight);
+			return minimalAnalyzeZoneContext.getImageData(0, 0, minimalAnalyzeZoneCanvasWidth, minimalAnalyzeZoneCanvasHeight);
+		}
+
 		function getDifferentPixels(prevImageData, currentImageData) {
-			var threshold = 20,
+			var threshold = 25,
 				differentPixels = [];
 
 			for(var i = 0, length = prevImageData.length; i < length; i += 4) {
@@ -87,7 +96,7 @@ angular.module('app').controller('DashboardController', ['$scope', '$sce', '$int
 					b = abs(prevImageData[i + 2] - currentImageData[i + 2]);
 
 				if(average(r, g, b) > threshold) {
-					differentPixels.push(i)
+					differentPixels.push(i / 4);
 				}
 			}
 
